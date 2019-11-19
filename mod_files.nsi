@@ -13,13 +13,15 @@ Section
  File DB_download.bat
  ${If} ${RunningX64}
     MessageBox MB_YESNO "Do dzialania potrzebne jest AWS CLI. Zainstalowac? " /SD IDYES IDNO endAWS
-	File AWSCLI64PY3.msi
-	ExecWait '"msiexec" /I "$INSTDIR\AWSCLI64PY3.msi"'
+	NSISdl::download https://s3.amazonaws.com/aws-cli/AWSCLI64PY3.msi AWSCLI.msi
+	/*File AWSCLI64PY3.msi*/
+	ExecWait '"msiexec" /I "$INSTDIR\AWSCLI.msi"'
 	Goto endAWS
  ${Else}
     MessageBox MB_YESNO "Do dzialania potrzebne jest AWS CLI. Zainstalowac? " /SD IDYES IDNO endAWS
-	File AWSCLI32PY3.msi
-	ExecWait '"msiexec" /I "$INSTDIR\AWSCLI32PY3.msi"'
+	NSISdl::download https://s3.amazonaws.com/aws-cli/AWSCLI32PY3.msi AWSCLI.msi
+	/*File AWSCLI32PY3.msi*/
+	ExecWait '"msiexec" /I "$INSTDIR\AWSCLI.msi"'
 	Goto endAWS
  ${EndIf} 
  endAWS:
