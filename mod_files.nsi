@@ -1,5 +1,5 @@
 !include x64.nsh
-Outfile "DrogaBonsai.exe"
+Outfile "InstallName.exe"
  
  Page directory
  Page instfiles
