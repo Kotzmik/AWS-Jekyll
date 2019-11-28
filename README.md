@@ -5,7 +5,7 @@ This project uses [Jekyll](https://jekyllrb.com) and [Amazon Web Services](https
 
 
 ### Files:
-**mod_files.msi**- [NSIS](https://nsis.sourceforge.io/Main_Page) script used to create installation files that deploy AWS CLI, config files  and download-upload scripts. OPTIONAL
+**mod_files.msi**- [NSIS](https://nsis.sourceforge.io/Main_Page) script used to create installation files that deploy AWS CLI, credentials and download-upload scripts. OPTIONAL
 
 **ruby.zip**- lambda layers. All ruby gems, aws lambda needs to run Jekyll.
 
