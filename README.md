@@ -13,4 +13,4 @@ This project uses [Jekyll](https://jekyllrb.com) and [Amazon Web Services](https
 
 
 ## How it works:
-The project works on 2 s3 bucket- WWW and STAGING. Both buckets contain the website files although STAGING has the site siles in a "raw" form and WWW holds already built site. When in there is a change in the STAGING bucket (for instance, a new file is uploaded), lambda recieves a signal, downloads everything from STAGING, builds the site using the Jekyll gem and uploads finished website on the WWW bucket.
+The project works on AWS Lambda and 2 S3 buckets- WWW and STAGING. Both buckets contain the website files although STAGING has the site siles in a "raw" form and WWW holds already built site. When in there is a change in the STAGING bucket (for instance, a new file is uploaded), lambda recieves a signal, downloads everything from STAGING, builds the site using the Jekyll gem and uploads finished website on the WWW bucket.
