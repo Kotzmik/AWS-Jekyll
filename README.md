@@ -1,4 +1,5 @@
 # AWS-Jekyll
+(readme.md is WIP)
 
 This project uses [Jekyll](https://jekyllrb.com) and [Amazon Web Services](https://aws.amazon.com) to make static websites without the necessity of instaling Ruby on your PC. 
 
