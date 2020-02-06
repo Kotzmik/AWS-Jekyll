@@ -147,6 +147,34 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 93c1dc48-97ce-43d3-b11c-75a5611438b1
+  StagingUser:
+    Type: 'AWS::IAM::User'
+    Properties:
+      Policies:
+        - PolicyName: AllowStagingBucketAccess
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - 's3:*'
+                Effect: Allow
+                Resource:
+                  - !GetAtt 
+                    - StageBucket
+                    - Arn
+                  - !Sub 'arn:${AWS::Partition}:s3:::${SiteName}-stage/*'
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 775cea76-0a13-4449-b5e4-58d50c64f713
+  StagingUserKeys:
+    Type: 'AWS::IAM::AccessKey'
+    Properties:
+      Serial: 1
+      Status: Active
+      UserName: !Ref StagingUser
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 3cc3632a-bc7f-43de-bd49-e4b2d2e46b7d
 Description: www-publisher stack
 Parameters:
   SiteName:
@@ -218,5 +246,23 @@ Metadata:
       position:
         x: 180
         'y': -10
+      z: 1
+      embeds: []
+    3cc3632a-bc7f-43de-bd49-e4b2d2e46b7d:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 390
+        'y': 210
+      z: 1
+      embeds: []
+    775cea76-0a13-4449-b5e4-58d50c64f713:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 390
+        'y': 90
       z: 1
       embeds: []
