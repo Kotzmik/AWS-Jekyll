@@ -101,28 +101,34 @@ Resources:
     Type: 'AWS::S3::Bucket'
     Properties:
       BucketName: !Sub '${SiteName}'
-      VersioningConfiguration:
-        Status: Enabled
-      ReplicationConfiguration:
-        Role: !GetAtt 
-          - CreateWWWRole
-          - Arn
-        Rules:
-          - Destination:
-              Bucket: !GetAtt 
-                - WWWBucket2
-                - Arn
-            Prefix: ''
-            Status: Enabled
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
     Metadata:
       'AWS::CloudFormation::Designer':
         id: d93eb1b2-326a-4ba0-bf3b-501ea5151655
+        
+  WebsiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref 'WWWBucket1'
+      PolicyDocument:
+        Statement:
+        - Sid: PublicReadForGetBucketObjects
+          Effect: Allow
+          Principal: '*'
+          Action: s3:GetObject
+          Resource: 
+            - !Sub 'arn:aws:s3:::${SiteName}'
+            - !Sub 'arn:aws:s3:::${SiteName}/*'
   WWWBucket2:
     Type: 'AWS::S3::Bucket'
     Properties:
       BucketName: !Sub 'www.${SiteName}'
-      VersioningConfiguration:
-        Status: Enabled
+      WebsiteConfiguration:
+        RedirectAllRequestsTo:
+          HostName: !Sub '${SiteName}'
+          Protocol: http
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 05f6d142-5eef-41fd-926c-023f183dd77a
@@ -175,6 +181,25 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 3cc3632a-bc7f-43de-bd49-e4b2d2e46b7d
+  
+  WWWRec1:
+    Type: 'AWS::Route53::RecordSet'
+    Properties:
+      Name: !Sub '${SiteName}'
+      Type: A
+      HostedZoneName: !Join ['', [!Ref 'SiteName', .]]
+      AliasTarget:
+        DNSName: 's3-website.eu-north-1.amazonaws.com'
+        HostedZoneId: 'Z3BAZG2TWCNX0D'
+  WWWRec2:
+    Type: 'AWS::Route53::RecordSet'
+    Properties:
+      Name: !Sub 'www.${SiteName}'
+      Type: A
+      HostedZoneName: !Join ['', [!Ref 'SiteName', .]]
+      AliasTarget:
+        DNSName: 's3-website.eu-north-1.amazonaws.com'
+        HostedZoneId: 'Z3BAZG2TWCNX0D'
 Description: www-publisher stack
 Parameters:
   SiteName:
@@ -246,23 +271,5 @@ Metadata:
       position:
         x: 180
         'y': -10
-      z: 1
-      embeds: []
-    3cc3632a-bc7f-43de-bd49-e4b2d2e46b7d:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 390
-        'y': 210
-      z: 1
-      embeds: []
-    775cea76-0a13-4449-b5e4-58d50c64f713:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 390
-        'y': 90
       z: 1
       embeds: []
