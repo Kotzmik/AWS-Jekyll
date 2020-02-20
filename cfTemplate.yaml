@@ -4,6 +4,66 @@ Outputs:
     Value: !GetAtt 
       - WWWBucket1
       - WebsiteURL
+Mappings:
+  RegionMap:
+    us-east-2:
+      DNSName: s3-website.us-east-2.amazonaws.com
+      HostedZoneId: Z2O1EMRO9K5GLX
+    us-east-1:
+      DNSName: s3-website-us-east-1.amazonaws.com
+      HostedZoneId: Z3AQBSTGFYJSTF
+    us-west-1:
+      DNSName: s3-website-us-west-1.amazonaws.com
+      HostedZoneId: Z2F56UZL2M1ACD
+    us-west-2:
+      DNSName: s3-website-us-west-2.amazonaws.com
+      HostedZoneId: Z3BJ6K6RIION7M
+    ap-east-1:
+      DNSName: s3-website.ap-east-1.amazonaws.com
+      HostedZoneId: ZNB98KWMFR0R6
+    ap-south-1:
+      DNSName: s3-website.ap-south-1.amazonaws.com
+      HostedZoneId: Z11RGJOFQNVJUP
+    ap-northeast-3:
+      DNSName: s3-website.ap-northeast-3.amazonaws.com
+      HostedZoneId: Z2YQB5RD63NC85
+    ap-northeast-2:
+      DNSName: s3-website.ap-northeast-2.amazonaws.com
+      HostedZoneId: Z3W03O7B5YMIYP
+    ap-southeast-1:
+      DNSName: s3-website-ap-southeast-1.amazonaws.com
+      HostedZoneId: Z3O0J2DXBE1FTB
+    ap-southeast-2:
+      DNSName: s3-website-ap-southeast-2.amazonaws.com
+      HostedZoneId: Z1WCIGYICN2BYD
+    ap-northeast-1:
+      DNSName: s3-website-ap-northeast-1.amazonaws.com
+      HostedZoneId: Z2M4EHUR26P7ZW
+    ca-central-1:
+      DNSName: s3-website.ca-central-1.amazonaws.com
+      HostedZoneId: Z1QDHH18159H29
+    eu-central-1:
+      DNSName: s3-website.eu-central-1.amazonaws.com
+      HostedZoneId: Z21DNDUVLTQW6Q
+    eu-west-1:
+      DNSName: s3-website-eu-west-1.amazonaws.com
+      HostedZoneId: Z1BKCTXD74EZPE
+    eu-west-2:
+      DNSName: 's3-website.eu-west-2.amazonaws.com'
+      HostedZoneId: 'Z3GKZC51ZF0DB4'
+    eu-west-3:
+      DNSName: 's3-website.eu-west-3.amazonaws.com'
+      HostedZoneId: 'Z3R1K369G5AVDG'
+    eu-north-1:
+      DNSName: 's3-website.eu-north-1.amazonaws.com'
+      HostedZoneId: 'Z3BAZG2TWCNX0D'
+    me-south-1:
+      DNSName: 's3-website.me-south-1.amazonaws.com'
+      HostedZoneId: 'Z1MPMWCPA7YB62'
+    sa-east-1:
+      DNSName: 's3-website-sa-east-1.amazonaws.com'
+      HostedZoneId: 'Z7KQH4QJS55SO'
+      
 Resources:
   StageBucket:
     Type: 'AWS::S3::Bucket'
@@ -17,9 +77,6 @@ Resources:
       BucketName: !Sub '${SiteName}-stage'
     DependsOn:
       - CreateWWWStageBucketEventPermission
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 671a9600-ae3e-4c9f-9165-124e1db5c6eb
   CreateWWW:
     Type: 'AWS::Lambda::Function'
     Properties:
@@ -42,9 +99,6 @@ Resources:
         - Arn
       Timeout: 300
       Runtime: ruby2.5
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: ab9540f5-256f-45c8-b6a2-1dc9ab7d0b72
   CreateWWWRole:
     Type: 'AWS::IAM::Role'
     Properties:
@@ -94,9 +148,6 @@ Resources:
               Service:
                 - lambda.amazonaws.com
                 - s3.amazonaws.com
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: e905d7ee-2337-46c3-80e2-4fdc68e6bc83
   WWWBucket1:
     Type: 'AWS::S3::Bucket'
     Properties:
@@ -104,10 +155,6 @@ Resources:
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: d93eb1b2-326a-4ba0-bf3b-501ea5151655
-        
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -129,9 +176,6 @@ Resources:
         RedirectAllRequestsTo:
           HostName: !Sub '${SiteName}'
           Protocol: http
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 05f6d142-5eef-41fd-926c-023f183dd77a
   CreateWWWRubyLayer9cca5ad8ec:
     DeletionPolicy: Retain
     Type: 'AWS::Lambda::LayerVersion'
@@ -140,9 +184,6 @@ Resources:
         S3Bucket: cf-templates-1u09o5tfcbfm2-eu-north-1
         S3Key: b2fb8cf06e9adfb3a6e3e641a6347739
       LayerName: CreateWWWRubyLayer
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: b7339e95-27eb-4399-a401-af40253f205f
   CreateWWWStageBucketEventPermission:
     Type: 'AWS::Lambda::Permission'
     Properties:
@@ -150,9 +191,6 @@ Resources:
       SourceAccount: !Ref 'AWS::AccountId'
       FunctionName: !Ref CreateWWW
       Principal: s3.amazonaws.com
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 93c1dc48-97ce-43d3-b11c-75a5611438b1
   StagingUser:
     Type: 'AWS::IAM::User'
     Properties:
@@ -169,19 +207,16 @@ Resources:
                     - StageBucket
                     - Arn
                   - !Sub 'arn:${AWS::Partition}:s3:::${SiteName}-stage/*'
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 775cea76-0a13-4449-b5e4-58d50c64f713
   StagingUserKeys:
     Type: 'AWS::IAM::AccessKey'
     Properties:
       Serial: 1
       Status: Active
       UserName: !Ref StagingUser
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 3cc3632a-bc7f-43de-bd49-e4b2d2e46b7d
-  
+  WWWZone:
+    Type: 'AWS::Route53::HostedZone'
+    Properties:
+      Name: !Sub '${SiteName}'
   WWWRec1:
     Type: 'AWS::Route53::RecordSet'
     Properties:
@@ -189,8 +224,15 @@ Resources:
       Type: A
       HostedZoneName: !Join ['', [!Ref 'SiteName', .]]
       AliasTarget:
-        DNSName: 's3-website.eu-north-1.amazonaws.com'
-        HostedZoneId: 'Z3BAZG2TWCNX0D'
+        DNSName: !FindInMap
+          - RegionMap
+          - !Ref "AWS::Region"
+          - DNSName
+        HostedZoneId: !FindInMap
+          - RegionMap
+          - !Ref "AWS::Region"
+          - HostedZoneId
+    DependsOn: WWWZone
   WWWRec2:
     Type: 'AWS::Route53::RecordSet'
     Properties:
@@ -198,78 +240,16 @@ Resources:
       Type: A
       HostedZoneName: !Join ['', [!Ref 'SiteName', .]]
       AliasTarget:
-        DNSName: 's3-website.eu-north-1.amazonaws.com'
-        HostedZoneId: 'Z3BAZG2TWCNX0D'
+        DNSName: !FindInMap
+          - RegionMap
+          - !Ref "AWS::Region"
+          - DNSName
+        HostedZoneId: !FindInMap
+          - RegionMap
+          - !Ref "AWS::Region"
+          - HostedZoneId
+    DependsOn: WWWZone
 Description: www-publisher stack
 Parameters:
   SiteName:
     Type: String
-Metadata:
-  'AWS::CloudFormation::Designer':
-    b7339e95-27eb-4399-a401-af40253f205f:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 60
-        'y': 90
-      z: 1
-      embeds: []
-    d93eb1b2-326a-4ba0-bf3b-501ea5151655:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 180
-        'y': 90
-      z: 1
-      embeds: []
-    e905d7ee-2337-46c3-80e2-4fdc68e6bc83:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 60
-        'y': 210
-      z: 1
-      embeds: []
-    ab9540f5-256f-45c8-b6a2-1dc9ab7d0b72:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 180
-        'y': 210
-      z: 1
-      embeds: []
-    93c1dc48-97ce-43d3-b11c-75a5611438b1:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 300
-        'y': 90
-      z: 1
-      embeds: []
-      isassociatedwith:
-        - ab9540f5-256f-45c8-b6a2-1dc9ab7d0b72
-    671a9600-ae3e-4c9f-9165-124e1db5c6eb:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 300
-        'y': 210
-      z: 1
-      embeds: []
-      dependson:
-        - 93c1dc48-97ce-43d3-b11c-75a5611438b1
-    05f6d142-5eef-41fd-926c-023f183dd77a:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 180
-        'y': -10
-      z: 1
-      embeds: []
