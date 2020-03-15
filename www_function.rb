@@ -92,6 +92,6 @@ def handler(event:, context:)
     	})
     	
     end
-
+    system('rm -r /tmp/*')
     
 end
