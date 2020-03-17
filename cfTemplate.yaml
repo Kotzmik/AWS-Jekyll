@@ -74,6 +74,10 @@ Resources:
               - CreateWWW
               - Arn
             Event: 's3:ObjectCreated:*'
+          - Function: !GetAtt
+              - CreateWWW
+              - Arn
+            Event: 's3:ObjectRemoved:*'
       BucketName: !Sub '${SiteName}-stage'
     DependsOn:
       - CreateWWWStageBucketEventPermission
