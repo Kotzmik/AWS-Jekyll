@@ -1,19 +1,17 @@
 require 'json'
 require 'jekyll'
 require 'aws-sdk-s3'
-require 'fileutils'
 
 def handler(event:, context:)
     { event: JSON.generate(event), context: JSON.generate(context.inspect) }
     puts [event, context]
-    
     s3 = Aws::S3::Client.new
     dir = String::new
 
     string = s3.list_objects_v2({
     	bucket: "#{ENV['STAGING']}"
     })
-
+    
     num=string.key_count
     while num>0 do
 	    num=num-1
@@ -27,7 +25,7 @@ def handler(event:, context:)
     			break
     			end
     		end
-    		FileUtils.mkdir_p "/tmp/#{dir}"
+    		system("mkdir /tmp/#{dir}")
     	end
     	resp = s3.get_object({
 	    	bucket: "#{ENV['STAGING']}",
@@ -44,11 +42,9 @@ def handler(event:, context:)
     Jekyll::Site.new(conf).process
     
 
-    FileUtils.cd("/tmp/_site")
+    Dir.chdir('/tmp/_site')
     list=Dir["**/*.*"]
     
-    
-    FileUtils.cd("/var/task")
     check = s3.list_objects_v2({
     	bucket: "#{ENV['WWW']}"
     })
@@ -77,8 +73,9 @@ def handler(event:, context:)
         })
     end
     
-    FileUtils.cd("/tmp/_site")
+    system('cd /tmp/_site')
     s3u = Aws::S3::Resource.new
+    
     
     numList=list.length
     while numList>0 do
@@ -92,6 +89,12 @@ def handler(event:, context:)
     	})
     	
     end
-    system('rm -r /tmp/*')
+    
+    Dir.chdir("/tmp")
+    system('pwd')
+    system('ls | grep -v "_config.yml" | xargs rm -r')
+    system('ls -r /tmp')
+    
+    
     
 end
