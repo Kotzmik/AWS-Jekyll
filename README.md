@@ -8,7 +8,7 @@ This project uses [Jekyll](https://jekyllrb.com) and [Amazon Web Services](https
 ### Files:
 **cfTemplate.yaml**- CloudFormation template. The only parameter is domain name (without www).
 
-**ruby.zip**- lambda layers. All ruby gems, aws lambda needs to run Jekyll.
+**ruby.zip**- lambda layers. All ruby gems AWS Lambda needs, to run Jekyll.
 
 **www_function.rb**- lambda function code. Just copy paste it into the lambda console :)
 
