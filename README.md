@@ -6,7 +6,7 @@ This project uses [Jekyll](https://jekyllrb.com) and [Amazon Web Services](https
 
 
 ### Files:
-**mod_files.msi**- [NSIS](https://nsis.sourceforge.io/Main_Page) script used to create installation files that deploy AWS CLI, credentials and download-upload scripts. OPTIONAL
+**cfTemplate.yaml**- CloudFormation template. The only parameter is domain name (without www).
 
 **ruby.zip**- lambda layers. All ruby gems, aws lambda needs to run Jekyll.
 
@@ -15,3 +15,6 @@ This project uses [Jekyll](https://jekyllrb.com) and [Amazon Web Services](https
 
 ## How it works:
 The project works on AWS Lambda and 2 S3 buckets- WWW and STAGING. Both buckets contain the website files although STAGING has the site siles in a "raw" form and WWW holds already built site. When in there is a change in the STAGING bucket (for instance, a new file is uploaded), lambda recieves a signal, downloads everything from STAGING, builds the site using the Jekyll gem and uploads finished website on the WWW bucket.
+
+## Work in progress:
+I'm working on a web editor for the site using AWS Lambda, Cognito and API Gateway.
