@@ -15,7 +15,8 @@ This project uses [Jekyll](https://jekyllrb.com) and [Amazon Web Services](https
 
 ## How it works:
 ![Template](img/CF.png)
-The project works on AWS Lambda and 2 S3 buckets- WWW and STAGING. Both buckets contain the website files although STAGING has the site siles in a "raw" form and WWW holds already built site. When in there is a change in the STAGING bucket (for instance, a new file is uploaded), lambda recieves a signal, downloads everything from STAGING, builds the site using the Jekyll gem and uploads finished website on the WWW bucket.
+
+Here are all the AWS Components that CloudFormation is making. **StagingUser** with **StagingUserKeys** is able to manage **StageBucket**. This bucket contains all the assets needed to create a static site. When something gets added to the bucket, **CreateWWWStageBucketEventPermission** triggers **CreateWWW**. This function with **CreateWWWRole** and **CreateWWWRubyLayer9cca5ad8ec** (containing ruby gems such as Jekyll etc.) downloads content from StageBucket, executes Jekyll and outputs finished site to **WWWBucket1**. **WebsiteBucketPolicy** makes the final bucket public for all making the site reachable to everyone. **WWWBucket2** is an empty bucket that redirects all the traffic to WWWBucket1. The last components are **WWWZone**, **WWWRec1** and **WWWRec2** (Route53 hosted zone and records needed to attach DNS to our site). WWWRec1 attaches WWWBucket1 and WWWRec2 ties WWWBucket2 with the hosted zone. The template requires one parameter which is simply your DNS. For example, if the parameter is 'domain.com', all the traffic from domain.com address is connecting directly to WWWBucket1 and address www.domain.com goes through WWWBucket2
 
 ## Work in progress:
 I'm working on a web editor for the site using AWS Lambda, Cognito and API Gateway.
