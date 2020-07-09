@@ -8,16 +8,6 @@ AWS-Jekyll is a project that creates an infrastructure to make, host and manage 
 - [Jekyll](https://jekyllrb.com) (version 3.8.3)
 - [Amazon Web Services](https://aws.amazon.com)
 
-
-
-### Files:
-**cfTemplate.yaml**- CloudFormation template. The only parameter is domain name (without www).
-
-**ruby.zip**- lambda layers. All ruby gems AWS Lambda needs, to run Jekyll.
-
-**www_function.rb**- lambda function code. Just copy paste it into the lambda console :)
-
-
 ## How it works:
 ![Template](img/CF.png)
 
@@ -35,3 +25,11 @@ The template requires one parameter which is simply your DNS. For example, if th
 
 ## Work in progress:
 I'm working on a web editor for the site using AWS Lambda, Cognito and API Gateway.
+
+
+### Files:
+**cfTemplate.yaml**- CloudFormation template. The only parameter is domain name (without www).
+
+**ruby.zip**- lambda layers. All ruby gems AWS Lambda needs, to run Jekyll.
+
+**www_function.rb**- lambda function code. Just copy paste it into the lambda console :)
