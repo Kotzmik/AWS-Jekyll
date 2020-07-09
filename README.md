@@ -1,7 +1,12 @@
 # AWS-Jekyll
 (readme.md is WIP)
 
-This project uses [Jekyll](https://jekyllrb.com) and [Amazon Web Services](https://aws.amazon.com) to make static websites without the necessity of instaling Ruby on your PC. 
+## About
+AWS-Jekyll is a project that creates an infrastructure to make, host and manage static websites in a quick and easy way without the necessity of installing any software on your device.
+
+## Main components: 
+- [Jekyll](https://jekyllrb.com) (version 3.8.3)
+- [Amazon Web Services](https://aws.amazon.com)
 
 
 
