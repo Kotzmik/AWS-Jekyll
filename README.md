@@ -8,6 +8,7 @@ AWS-Jekyll is a project that creates an infrastructure to make, host and manage 
 - [Jekyll](https://jekyllrb.com) (version 3.8.3)
 - [Amazon Web Services](https://aws.amazon.com)
 
+
 ## How it works:
 ![Template](img/CF.png)
 
@@ -20,6 +21,8 @@ This function with **CreateWWWRole** and **CreateWWWRubyLayer9cca5ad8ec** (conta
 **WWWBucket2** is an empty bucket that redirects all the traffic to WWWBucket1. 
 
 The last components are **WWWZone**, **WWWRec1** and **WWWRec2** (Route53 hosted zone and records needed to attach DNS to our site). WWWRec1 attaches WWWBucket1 and WWWRec2 ties WWWBucket2 with the hosted zone. 
+
+Because Jekyll is written in Ruby language, so is **CreateWWW**
 
 The template requires one parameter which is simply your DNS. For example, if the parameter is 'domain.com', all the traffic from domain.com address is connecting directly to WWWBucket1 and address www.domain.com goes through WWWBucket2
 
