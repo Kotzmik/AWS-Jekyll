@@ -8,7 +8,14 @@ AWS-Jekyll is a project that creates an infrastructure to make, host and manage 
 - [Jekyll](https://jekyllrb.com) (version 3.8.3)
 - [Amazon Web Services](https://aws.amazon.com)
 
+## Setting up:
+To get started, log in to your aws account, make sure you are accessing the right region and go to the CloudFormation service. Download *cfTemplate.yaml* from the repository and create a stack using that file as a template. In **Specify stack details** you will be asked to enter stack name and your domain name as a parameter called *SiteName*. Make sure you wrote your DNS correctly (i.e. "yourdomain.com"). ![1](img/1.png)
 
+After the succesfull creation, you can check all the created resources, types and physical IDs in the *resources* tab. The stack also has an output called **WwwURL**. Its value is an endpoint of an S3 bucket that will contain your website (remember that at this point the buckets are still empty). 
+
+Now you can upload your website or use a template ([Kotzmik/AWS-Jekyll/site](https://github.com/Kotzmik/AWS-Jekyll/tree/master/site)). Go again to the *resources* tab of your stack and find a bucket called **StageBucket**. This bucket will contain all unprocessed files (explained below). Access this bucket and upload here all your files or the ones from AWS-Jeckyll/site directory. Now go back to the *outputs* tab of your stack and click on the URL.
+
+{dns został}
 ## How it works:
 ![Template](img/CF.png)
 
@@ -25,6 +32,8 @@ The last components are **WWWZone**, **WWWRec1** and **WWWRec2** (Route53 hosted
 Because Jekyll is written in Ruby language, so is **CreateWWW**
 
 The template requires one parameter which is simply your DNS. For example, if the parameter is 'domain.com', all the traffic from domain.com address is connecting directly to WWWBucket1 and address www.domain.com goes through WWWBucket2
+
+{wykonanie krok po kroku}
 
 ## Work in progress:
 I'm working on a web editor for the site using AWS Lambda, Cognito and API Gateway.
