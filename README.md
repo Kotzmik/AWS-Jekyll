@@ -37,7 +37,7 @@ The template requires one parameter which is simply your DNS. For example, if th
 {wykonanie krok po kroku}
 
 ## Work in progress:
-I'm working on a web editor for the site using AWS Lambda, Cognito and API Gateway.
+I'm working on a serverless web editor for the site using AWS Lambda, Cognito and API Gateway.
 
 
 ### Files:
@@ -46,3 +46,5 @@ I'm working on a web editor for the site using AWS Lambda, Cognito and API Gatew
 **ruby.zip**- lambda layers. All ruby gems AWS Lambda needs, to run Jekyll.
 
 **www_function.rb**- lambda function code. Just copy paste it into the lambda console :)
+
+**mod_files.msi**- [NSIS](https://nsis.sourceforge.io/Main_Page) script used to create installation files that deploy AWS CLI, credentials and download-upload scripts. OPTIONAL
