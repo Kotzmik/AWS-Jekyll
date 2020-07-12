@@ -37,7 +37,7 @@ The template requires one parameter which is simply your DNS. For example, if th
 {wykonanie krok po kroku}
 
 ## Work in progress:
-I'm working on a serverless web editor for the site using AWS Lambda, Cognito and API Gateway. Currently, the code can be found [on my other repository](https://github.com/Kotzmik/git2s3test) however, it is not commented properly and additional aws services have to be set up manually in order for the editor to work. When I'm done, I'll merge those two projects into one.
+I'm working on a serverless web editor for the site using AWS Lambda, Cognito and API Gateway. Currently, the code can be found [on my other repository](https://github.com/Kotzmik/git2s3test) however, it is not commented properly and additional aws services have to be set up manually in order for the editor to work. When I'm done, I'll merge those two projects into one and update the documentation.
 
 
 ### Files:
