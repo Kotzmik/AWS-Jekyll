@@ -15,7 +15,8 @@ After the succesfull creation, you can check all the created resources, types an
 
 Now you can upload your website or use a template ([Kotzmik/AWS-Jekyll/site](https://github.com/Kotzmik/AWS-Jekyll/tree/master/site)). Go again to the *resources* tab of your stack and find a bucket called **StageBucket**. This bucket will contain all unprocessed files (explained below). Access this bucket and upload here all your files or the ones from AWS-Jeckyll/site directory. Now go back to the *outputs* tab of your stack and click on the URL.
 
-{dns został}
+The only thing left is connecting your DNS to the S3 bucket through Route 53. If you bought the domain from AWS, your domain was automatically connected to the Hosted Zone. If that is not your case, [this article is for you](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html). Remember that any changes with the DNS can take alot of time.
+
 ## How it works:
 ![Template](img/CF.png)
 
