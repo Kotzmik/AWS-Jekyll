@@ -17,6 +17,8 @@ Now you can upload your website or use a template ([Kotzmik/AWS-Jekyll/site](htt
 
 The only thing left is connecting your DNS to the S3 bucket through Route 53. If you bought the domain from AWS, your domain was automatically connected to the Hosted Zone. If that is not your case, [this article is for you](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html). Remember that any changes with the DNS can take alot of time.
 
+## Using it
+Before you start creating your own website on this structure, you need to have a basic understanding of the Jekyll gem (considering you already understand HTML, CSS, Markdown, etc.). ![This link](https://jekyllrb.com/docs/) contains whole jekyll documentation, which will not only help you make your own website, but also help you better understand what is happening in the back-end. Don't worry about the installation and the command line usage because everything is already installed and the commands are being automatically executed in your Lambda function. 
 ## How it works:
 ![Template](img/CF.png)
 
