@@ -86,8 +86,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Layers:
-        - !Ref CreateWWWRubyLayer9cca5ad8ec
-      CodeUri: Lambda
+        - !Ref CreateWWWRubyLayer
+      CodeUri: Lambda/.
       Handler: www_function.handler
       Tags:
         - Value: SAM
@@ -97,7 +97,6 @@ Resources:
         Variables:
           WWW: !Ref WWWBucket1
           STAGING: !Sub '${SiteName}-stage'
-      Handler: www_function.handler
       Role: !GetAtt 
         - CreateWWWRole
         - Arn
@@ -180,14 +179,14 @@ Resources:
         RedirectAllRequestsTo:
           HostName: !Sub '${SiteName}'
           Protocol: http
-  CreateWWWRubyLayer9cca5ad8ec:
+  CreateWWWRubyLayer:
     DeletionPolicy: Retain
-    Type: 'AWS::Lambda::LayerVersion'
+    Type: AWS::Serverless::LayerVersion
     Properties:
-      Content:
-        S3Bucket: cf-templates-1u09o5tfcbfm2-eu-north-1
-        S3Key: b2fb8cf06e9adfb3a6e3e641a6347739
+      ContentUri: Layers/.
       LayerName: CreateWWWRubyLayer
+      CompatibleRuntimes:
+        - ruby2.5
   CreateWWWStageBucketEventPermission:
     Type: 'AWS::Lambda::Permission'
     Properties:
