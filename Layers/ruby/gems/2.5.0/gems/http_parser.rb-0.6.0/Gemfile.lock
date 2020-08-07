@@ -10,8 +10,8 @@ GEM
     diff-lcs (1.1.2)
     ffi (1.9.24)
     ffi (1.9.24-java)
-    json (1.8.0)
-    json (1.8.0-java)
+    json (2.3.0)
+    json (2.3.0-java)
     rake (13.0.1)
     rake-compiler (0.7.9)
       rake
