@@ -1,4 +1,5 @@
-AWSTemplateFormatVersion: 2010-09-09
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
 Outputs:
   WwwURL:
     Value: !GetAtt 
@@ -82,13 +83,12 @@ Resources:
     DependsOn:
       - CreateWWWStageBucketEventPermission
   CreateWWW:
-    Type: 'AWS::Lambda::Function'
+    Type: AWS::Serverless::Function
     Properties:
       Layers:
         - !Ref CreateWWWRubyLayer9cca5ad8ec
-      Code:
-        S3Bucket: cf-templates-1u09o5tfcbfm2-eu-north-1
-        S3Key: 2f5a5464ac0169160bec80f25f9a87fd
+      CodeUri: Lambda
+      Handler: www_function.handler
       Tags:
         - Value: SAM
           Key: 'lambda:createdBy'
