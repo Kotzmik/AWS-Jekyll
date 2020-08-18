@@ -1,5 +1,5 @@
 # AWS-Jekyll
-(readme.md is WIP)
+(readme.md is WIP) SAM{instalacja, wymagania}
 
 ## About
 AWS-Jekyll is a project that creates an infrastructure to make, host and manage static websites in a quick and easy way without the necessity of installing any software on your device.
