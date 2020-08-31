@@ -4,16 +4,53 @@
 ## About
 AWS-Jekyll is a project that creates an infrastructure to make, host and manage static websites in a quick and easy way without the necessity of installing any software on your device.
 
-## Main components: 
-- [Jekyll](https://jekyllrb.com) (version 3.8.3)
+### Main components: 
+- [Jekyll](https://jekyllrb.com) (version 4.1.1)
 - [Amazon Web Services](https://aws.amazon.com)
 
 ## Setting up:
-To get started, log in to your aws account, make sure you are accessing the right region and go to the CloudFormation service. Download *cfTemplate.yaml* from the repository and create a stack using that file as a template. In **Specify stack details** you will be asked to enter stack name and your domain name as a parameter called *SiteName*. Make sure you wrote your DNS correctly (i.e. "yourdomain.com"). ![1](img/1.png)
+First, make sure you have an AWS Account :)  
+After that, you need AWS [CLI](https://aws.amazon.com/cli/), [SAM](https://aws.amazon.com/serverless/sam/) and [Ruby](https://www.ruby-lang.org) (version 2.5) installed. 
 
-After the succesfull creation, you can check all the created resources, types and physical IDs in the *resources* tab. The stack also has an output called **WwwURL**. Its value is an endpoint of an S3 bucket that will contain your website (remember that at this point the buckets are still empty). 
+Make sure you have all the components installed:
+```bash
+$ aws --version
 
-Now you can upload your website or use a template ([Kotzmik/AWS-Jekyll/site](https://github.com/Kotzmik/AWS-Jekyll/tree/master/site)). Go again to the *resources* tab of your stack and find a bucket called **StageBucket**. This bucket will contain all unprocessed files (explained below). Access this bucket and upload here all your files or the ones from AWS-Jeckyll/site directory. Now go back to the *outputs* tab of your stack and click on the URL.
+$ sam --version
+
+$ ruby -v
+```
+Then, install [Ruby Bundler](https://bundler.io):
+```bash
+$ gem install bundler
+```
+When all the components are installed and ready, clone this repository:
+```bash
+$ git clone https://github.com/Kotzmik/AWS-Jekyll
+$ cd AWS-Jekyll
+```
+Now its time to use AWS SAM commands:
+```bash
+$ sam build
+
+#Expected result:
+#Building function 'CreateWWW'
+#Running RubyBundlerBuilder:CopySource
+#Running RubyBundlerBuilder:RubyBundle
+#Running RubyBundlerBuilder:RubyBundleDeployment
+#
+#Build Succeeded
+#
+#Built Artifacts  : .aws-sam\build
+#Built Template   : .aws-sam\build\template.yaml
+#
+#Commands you can use next
+#=========================
+#[*] Invoke Function: sam local invoke
+#[*] Deploy: sam deploy --guided
+
+$ sam deploy --guided
+```
 
 The only thing left is connecting your DNS to the S3 bucket through Route 53. If you bought the domain from AWS, your domain was automatically connected to the Hosted Zone. If that is not your case, [this article is for you](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html). Remember that any changes with the DNS can take alot of time.
 
