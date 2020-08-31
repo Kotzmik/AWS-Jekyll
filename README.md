@@ -11,7 +11,7 @@ AWS-Jekyll is a project that creates an infrastructure to make, host and manage 
 ## Setting up:
 First, make sure you have an AWS Account :)  
 After that, you need AWS [CLI](https://aws.amazon.com/cli/), [SAM](https://aws.amazon.com/serverless/sam/) and [Ruby](https://www.ruby-lang.org) (version 2.5) installed. 
-
+If you are using AWS CLI for the first time, you have to link it to your AWS account (more about that [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)).  
 Make sure you have all the components installed:
 ```bash
 $ aws --version
@@ -32,25 +32,29 @@ $ cd AWS-Jekyll
 Now its time to use AWS SAM commands:
 ```bash
 $ sam build
-
-#Expected result:
-#Building function 'CreateWWW'
-#Running RubyBundlerBuilder:CopySource
-#Running RubyBundlerBuilder:RubyBundle
-#Running RubyBundlerBuilder:RubyBundleDeployment
-#
-#Build Succeeded
-#
-#Built Artifacts  : .aws-sam\build
-#Built Template   : .aws-sam\build\template.yaml
-#
-#Commands you can use next
-#=========================
-#[*] Invoke Function: sam local invoke
-#[*] Deploy: sam deploy --guided
-
-$ sam deploy --guided
 ```
+Expected result:
+```
+Building function 'CreateWWW'
+Running RubyBundlerBuilder:CopySource
+Running RubyBundlerBuilder:RubyBundle
+Running RubyBundlerBuilder:RubyBundleDeployment
+
+Build Succeeded
+
+Built Artifacts  : .aws-sam\build
+Built Template   : .aws-sam\build\template.yaml
+
+Commands you can use next
+=========================
+[*] Invoke Function: sam local invoke
+[*] Deploy: sam deploy --guided
+```
+After that, you are ready to deploy the stack:
+```bash
+ sam deploy --guided
+```
+The --guided flag will help you fill in all the required parameters such as stack name, region and site name.
 
 The only thing left is connecting your DNS to the S3 bucket through Route 53. If you bought the domain from AWS, your domain was automatically connected to the Hosted Zone. If that is not your case, [this article is for you](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html). Remember that any changes with the DNS can take alot of time.
 
