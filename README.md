@@ -56,6 +56,8 @@ After that, you are ready to deploy the stack:
 ```
 The --guided flag will help you fill in all the required parameters such as stack name, region and site name.
 
+{site upload here}
+
 The only thing left is connecting your DNS to the S3 bucket through Route 53. If you bought the domain from AWS, your domain was automatically connected to the Hosted Zone. If that is not your case, [this article is for you](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html). Remember that any changes with the DNS can take alot of time.
 
 ## Using it
