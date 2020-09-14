@@ -64,7 +64,7 @@ You're almost done here :) The only thing left is uploading your website scaffol
  $ aws s3 sync . s3://paste-StageBucket-ID-here
 ```
 
-Now go back to the cf Outputs, copy the WwwURL value and paste it into your browser. The site should be ready.
+Now go back to the CF outputs, copy the WwwURL value and paste it into your browser. The site should be ready.
 
 The only thing left is connecting your DNS to the S3 bucket through Route 53. If you bought the domain from AWS, your domain was automatically connected to the Hosted Zone. If that is not your case, [this article is for you](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html). Remember that any changes with the DNS can take alot of time.
 
