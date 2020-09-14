@@ -2,9 +2,13 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Outputs:
   WwwURL:
+    Description: URL of the bucket used for containing the final website files.
     Value: !GetAtt 
       - WWWBucket1
       - WebsiteURL
+  StageBucket:
+    Description: Stage bucket ID (copy this!)
+    Value: !Ref StageBucket
 Mappings:
   RegionMap:
     us-east-2:
