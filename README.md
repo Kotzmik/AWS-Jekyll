@@ -54,14 +54,22 @@ After that, you are ready to deploy the stack:
 ```bash
  sam deploy --guided
 ```
-The --guided flag will help you fill in all the required parameters such as stack name, region and site name.
+The --guided flag will help you fill in all the required parameters such as stack name, region and site name. After putting in the parameters, the terminal will show you all the resources, CloudFormation will be creating. Then, you will be asked to confirm this changeset (Y). When confirmed, toy will see all CF events in real time.
 
-{site upload here}
+When the stack finishes deploying, you will see in the terminal two outputs: **StageBucket** and **WwwURL**. Copy the value of StageBucket to your clipboard.
+
+You're almost done here :) The only thing left is uploading your website scaffolding to your s3 bucket:
+```bash
+ $ cd site
+ $ aws s3 sync . s3://paste-StageBucket-ID-here
+```
+
+Now go back to the cf Outputs, copy the WwwURL value and paste it into your browser. The site should be ready.
 
 The only thing left is connecting your DNS to the S3 bucket through Route 53. If you bought the domain from AWS, your domain was automatically connected to the Hosted Zone. If that is not your case, [this article is for you](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html). Remember that any changes with the DNS can take alot of time.
 
 ## Using it
-Before you start creating your own website on this structure, you need to have a basic understanding of the Jekyll gem (considering you already understand HTML, CSS, Markdown, etc.). [This link](https://jekyllrb.com/docs/) contains whole jekyll documentation, which will not only help you make your own website, but also help you better understand what is happening in the back-end. Don't worry about the installation and the command line usage because everything is already installed and the commands are being automatically executed in your Lambda function. 
+Before you start creating your own website on this structure, you need to have a basic understanding of the Jekyll gem (considering you already understand HTML, CSS, Markdown, etc.). [This link](https://jekyllrb.com/docs/) contains whole jekyll documentation, which will not only help you make your own website, but also help you better understand what is happening in the back-end. Don't worry about the installation and the command line usage sections, because everything is already installed and the commands are being automatically executed in your Lambda function. 
 ## How it works:
 ![Template](img/CF.png)
 
