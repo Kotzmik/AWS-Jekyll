@@ -7,6 +7,9 @@ def handler(event:, context:)
     puts [event, context]
     s3 = Aws::S3::Client.new
     dir = String::new
+    
+    #system('rm -rf /tmp/*')
+    
 
     string = s3.list_objects_v2({
     	bucket: "#{ENV['STAGING']}"
@@ -25,7 +28,7 @@ def handler(event:, context:)
     			break
     			end
     		end
-    		system("mkdir /tmp/#{dir}")
+    		system("mkdir -p /tmp/#{dir}")
     	end
     	resp = s3.get_object({
 	    	bucket: "#{ENV['STAGING']}",
@@ -80,13 +83,23 @@ def handler(event:, context:)
     numList=list.length
     while numList>0 do
     	numList=numList-1
-    	obj = s3u.bucket("#{ENV['WWW']}").object("#{list[numList]}")
-    	obj.upload_file("#{list[numList]}")
-    	resp=s3.put_object_acl({
-    	acl: "public-read",
-    	bucket: "#{ENV['WWW']}",
-    	key: "#{list[numList]}",
-    	})
+
+    	if list[numList].end_with?(".svg")
+        	resp=s3.put_object({
+            	body: File.read("#{list[numList]}"),
+            	acl: "public-read",
+            	bucket: "#{ENV['WWW']}",
+            	key: "#{list[numList]}",
+            	content_type: "image/svg+xml",
+        	})
+        else
+        	resp=s3.put_object({
+        	    body: File.read("#{list[numList]}"),
+            	acl: "public-read",
+            	bucket: "#{ENV['WWW']}",
+            	key: "#{list[numList]}",
+        	})
+        end
     	
     end
     
@@ -96,5 +109,6 @@ def handler(event:, context:)
     system('ls -r /tmp')
     
     
-    
+
+
 end
