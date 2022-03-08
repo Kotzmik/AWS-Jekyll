@@ -1,6 +1,9 @@
 # AWS-Jekyll
 (readme.md is WIP) SAM{instalacja, wymagania}
 
+## Disclaimer
+Current version works on Ruby 2.5.5 which is no longer supported by AWS. New version of the project will be available soon.
+
 ## About
 AWS-Jekyll is a project that creates an infrastructure to make, host and manage static websites in a quick and easy way.
 
